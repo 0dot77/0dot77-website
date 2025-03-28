@@ -1,11 +1,26 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout>
-	<Welcome />
+	<div>
+		<h1 class="text-sky-400 text-4xl font-bold sm:text-5xl">0dot77</h1>
+		<p class="self-start text-md italic mt-2 text-white">Everything has its own map</p>
+	</div>
+	<nav class="text-gray-100 mt-4 italic">
+		<ul class="flex flex-col gap-4">
+			<li>
+				<a href="/about">About</a>
+			</li>
+			<li>
+				<a href="/projects">Projects</a>
+			</li>
+			<li>
+				<a href="/blog">Blog</a>
+			</li>
+			<li>
+				<a href="/weaving">Weaving</a>
+			</li>
+		</ul>
+	</nav>
 </Layout>

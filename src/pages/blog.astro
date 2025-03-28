@@ -1,0 +1,51 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getCollection } from 'astro:content';
+import PageTitle from "../components/PageTitle.astro";
+
+// 블로그 게시물 가져오기
+const posts = await getCollection('blog');
+// 날짜 기준으로 정렬 (최신 게시물이 먼저 표시)
+posts.sort((a, b) => new Date(b.data.publishDate).valueOf() - new Date(a.data.publishDate).valueOf());
+---
+
+<Layout>
+    <div>
+        <PageTitle title="Blog" subtitle="0.77" />
+
+        <div class="flex justify-center gap-4 mt-4 sm:justify-end sm:mt-2">
+            <h2 class="text-gray-100 italic">daily</h2>
+            <h2 class="text-gray-100 italic">research</h2>
+            <h2 class="text-gray-100 italic">thinking</h2>
+            <h2 class="text-gray-100 italic">etc</h2>
+        </div>
+    </div>
+
+    <div class="mt-10 space-y-6">
+        {posts.map((post) => (
+            <article class="border-b pb-5">
+                <div class="sm:flex justify-between items-end">
+                    <h2 class="text-xl sm:text-3xl">
+                        <a href={`/blog/${post.id}`} class="hover:text-sky-500 transition-colors">
+                            {post.data.title}
+                        </a>
+                    </h2>
+                    <div class="text-xs text-gray-100 italic mt-2 sm:text-base sm:mt-0">
+                        {new Date(post.data.publishDate).toLocaleDateString('ko-KR', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        })}
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <p class="bg-sky-900/30 px-3 py-1 w-fit rounded-md border-sky-500">{post.data.description}</p>
+                </div>
+            </article>
+        ))}
+    </div>
+    
+    {posts.length === 0 && (
+        <p class="mt-8 text-center text-gray-500">아직 게시물이 없습니다.</p>
+    )}
+</Layout>

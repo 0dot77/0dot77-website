@@ -1,0 +1,48 @@
+---
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import { getCollection, render } from 'astro:content';
+
+// 동적 경로 생성
+export async function getStaticPaths() {
+  const blogEntries = await getCollection('blog');
+  return blogEntries.map(entry => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+// 타입 정의
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+
+<BlogPostLayout>
+  <article class="max-w-3xl mx-auto font-pretendard">
+    <div class="mb-10">
+      <a href="/blog" class="text-sky-500 hover:underline">&larr; Back</a>
+      <h1 class="text-4xl font-bold">{entry.data.title}</h1>
+      <div class="mb-4">
+        {new Date(entry.data.publishDate).toLocaleDateString('ko-KR', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        })}
+        {entry.data.author && ` • ${entry.data.author}`}
+      </div>
+      {entry.data.tags && (
+        <div class="mt-2 flex gap-2 flex-wrap">
+          {entry.data.tags.map((tag: string) => (
+            <span class="bg-sky-100 text-sky-800 px-2 py-1 rounded-full text-sm">
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
+
+    <div class="prose prose-lg max-w-none">
+      <Content />
+    </div>
+  </article>
+</BlogPostLayout>

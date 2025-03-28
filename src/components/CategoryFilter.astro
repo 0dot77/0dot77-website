@@ -1,0 +1,8 @@
+---
+import CategoryFilterIsland from './CategoryFilterIsland.jsx';
+
+const {allPosts} = Astro.props;
+const categories = ['all', 'daily', 'research', 'thinking', 'etc'];
+---
+
+<CategoryFilterIsland client:load categories={categories} allPosts={allPosts} />

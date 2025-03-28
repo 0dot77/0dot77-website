@@ -1,0 +1,13 @@
+---
+interface Props {
+    title: string;
+    subtitle: string;
+}
+
+const { title, subtitle }: Props = Astro.props;
+---
+
+<div class="flex justify-between items-end">
+    <h1 class="text-sky-400 text-4xl font-bold font-pretendard">{title}</h1>
+    <a href="/" class="text-gray-100 text-2xl italic font-pretendard">{subtitle}</a>
+</div>
