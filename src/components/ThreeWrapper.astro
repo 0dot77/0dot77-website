@@ -1,9 +1,10 @@
 ---
 import '../styles/global.css';
+
 interface Props {
-    srcLink: string;
     title: string;
     workTitle: string;
+    srcLink?: string;
 }
 
 const { srcLink, title, workTitle }: Props = Astro.props;
@@ -20,6 +21,6 @@ const { srcLink, title, workTitle }: Props = Astro.props;
     <h1 class="absolute top-6 left-6 text-2xl font-bold text-white font-pretendard border-2 rounded-full border-white px-4 py-2">{workTitle}</h1>
     <a href="/weaving" class="absolute bottom-6 right-6 text-2xl font-bold text-white font-pretendard italic">0.77</a>
     <div id="three-container" class="w-full h-full"></div>
-    <script type="module" src={srcLink}></script>
+    {srcLink && <script type="module" src={srcLink}></script>}
 </body>
 </html>
